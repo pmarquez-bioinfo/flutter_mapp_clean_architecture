@@ -16,7 +16,6 @@ class SelectedPokemonItemProvider extends ChangeNotifier {
 
   void toggleShiny() {
     isShiny = !isShiny;
-    print('isShiny: $isShiny');
     notifyListeners();
   }
 }

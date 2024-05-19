@@ -3,10 +3,8 @@ import '../../business/entities/pokemon_image_entity.dart';
 
 class PokemonImageModel extends PokemonImageEntity {
   const PokemonImageModel({
-    required String path,
-  }) : super(
-          path: path,
-        );
+    required super.path,
+  });
 
   factory PokemonImageModel.fromJson({required Map<String, dynamic> json}) {
     return PokemonImageModel(

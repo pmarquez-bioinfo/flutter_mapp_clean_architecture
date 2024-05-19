@@ -9,7 +9,6 @@ import '../../../../../core/connection/network_info.dart';
 import '../../../../../core/constants/constants.dart';
 import '../providers/pokemon_provider.dart';
 import '../providers/selected_pokemon_item_provider.dart';
-import 'custom_elevated_button_widget.dart';
 
 class SearchPokemonWidget extends StatelessWidget {
   const SearchPokemonWidget({super.key});

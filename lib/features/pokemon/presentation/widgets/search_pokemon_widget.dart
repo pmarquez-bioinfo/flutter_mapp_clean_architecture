@@ -37,6 +37,7 @@ class SearchPokemonWidget extends StatelessWidget {
                   selectedPokemonItem.changeNumber(
                     newNumber: Random().nextInt(maxPokemonId),
                   );
+                  search(context, scaffoldMessengerState, selectedPokemonItem);
                 },
                 child: const Text(
                   'Random',
@@ -63,6 +64,7 @@ class SearchPokemonWidget extends StatelessWidget {
                           child: const Text('Done'),
                           onPressed: () {
                             Navigator.of(context).pop();
+                            search(context, scaffoldMessengerState, selectedPokemonItem);
                           },
                         ),
                         Expanded(
@@ -108,6 +110,7 @@ class SearchPokemonWidget extends StatelessWidget {
               SizedBox(width: 100.0, height: 50.0, 
                 child:  CheckboxMenuButton(value:  selectedPokemonItem.isShiny, onChanged:(value) => {
                           selectedPokemonItem.toggleShiny(),
+                          search(context, scaffoldMessengerState, selectedPokemonItem)
                         }, child: const Text('Shiny'),),),
             ],
           ),
@@ -116,29 +119,33 @@ class SearchPokemonWidget extends StatelessWidget {
             textColor: Colors.white,
             iconColor: Colors.white,
             callback: () async {
-              PokemonImageProvider pokemonImageProvider = Provider.of<PokemonImageProvider>(context, listen: false);
-    
-              Provider.of<PokemonProvider>(context, listen: false)
-                  .eitherFailureOrPokemon(
-                value: (selectedPokemonItem.number + 1).toString(),
-                isShiny: selectedPokemonItem.isShiny,
-                pokemonImageProvider: pokemonImageProvider
-              );
-              if (await NetworkInfoImpl(DataConnectionChecker()).isConnected ==
-                  false) {
-                scaffoldMessengerState.clearSnackBars();
-                scaffoldMessengerState.showSnackBar(
-                  const SnackBar(
-                    backgroundColor: Colors.orange,
-                    content: Text('No connection'),
-                    showCloseIcon: true,
-                  ),
-                );
-              }
+              search(context, scaffoldMessengerState, selectedPokemonItem);
             },
           ),
         ],
       ),
     );
+  }
+
+  void search (BuildContext context, ScaffoldMessengerState scaffoldMessengerState, SelectedPokemonItemProvider selectedPokemonItem) async {
+    PokemonImageProvider pokemonImageProvider = Provider.of<PokemonImageProvider>(context, listen: false);
+  
+    Provider.of<PokemonProvider>(context, listen: false)
+        .eitherFailureOrPokemon(
+      value: (selectedPokemonItem.number + 1).toString(),
+      isShiny: selectedPokemonItem.isShiny,
+      pokemonImageProvider: pokemonImageProvider
+    );
+    if (await NetworkInfoImpl(DataConnectionChecker()).isConnected ==
+        false) {
+      scaffoldMessengerState.clearSnackBars();
+      scaffoldMessengerState.showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.orange,
+          content: Text('No connection'),
+          showCloseIcon: true,
+        ),
+      );
+    }
   }
 }

@@ -114,14 +114,7 @@ class SearchPokemonWidget extends StatelessWidget {
                         }, child: const Text('Shiny'),),),
             ],
           ),
-          CustomElevatedButtonWidget(
-            buttonColor: Colors.orangeAccent,
-            textColor: Colors.white,
-            iconColor: Colors.white,
-            callback: () async {
-              search(context, scaffoldMessengerState, selectedPokemonItem);
-            },
-          ),
+          
         ],
       ),
     );

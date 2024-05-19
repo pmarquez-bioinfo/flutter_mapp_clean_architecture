@@ -12,7 +12,7 @@ import '../providers/selected_pokemon_item_provider.dart';
 import 'custom_elevated_button_widget.dart';
 
 class SearchPokemonWidget extends StatelessWidget {
-  const SearchPokemonWidget({Key? key}) : super(key: key);
+  const SearchPokemonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SearchPokemonWidget extends StatelessWidget {
       child: Column(
         children: [
           Wrap(
-            spacing: 10.0,
+            spacing: 1.0,
             runSpacing: 5.0,
             children: [
               ElevatedButton(
@@ -105,6 +105,10 @@ class SearchPokemonWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(width: 100.0, height: 50.0, 
+                child:  CheckboxMenuButton(value:  selectedPokemonItem.isShiny, onChanged:(value) => {
+                          selectedPokemonItem.toggleShiny(),
+                        }, child: const Text('Shiny'),),),
             ],
           ),
           CustomElevatedButtonWidget(
@@ -117,6 +121,7 @@ class SearchPokemonWidget extends StatelessWidget {
               Provider.of<PokemonProvider>(context, listen: false)
                   .eitherFailureOrPokemon(
                 value: (selectedPokemonItem.number + 1).toString(),
+                isShiny: selectedPokemonItem.isShiny,
                 pokemonImageProvider: pokemonImageProvider
               );
               if (await NetworkInfoImpl(DataConnectionChecker()).isConnected ==

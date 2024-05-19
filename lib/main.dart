@@ -67,6 +67,7 @@ class _HomeState extends State<Home> {
 
     Provider.of<PokemonProvider>(context, listen: false).eitherFailureOrPokemon(
       value: (selectedPokemonItem.number + 1).toString(),
+      isShiny: selectedPokemonItem.isShiny,
       pokemonImageProvider: pokemonImageProvider,
     );
     super.initState();

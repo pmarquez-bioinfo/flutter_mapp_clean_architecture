@@ -11,8 +11,10 @@ class PokemonParams {
 class PokemonImageParams {
   final String name;
   final String imageUrl;
+  final bool isShiny;
   const PokemonImageParams({
     required this.name,
     required this.imageUrl,
+    required this.isShiny,
   });
 }

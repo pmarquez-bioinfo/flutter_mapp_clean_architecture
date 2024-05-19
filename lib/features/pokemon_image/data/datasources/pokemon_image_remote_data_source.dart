@@ -20,7 +20,9 @@ class PokemonImageRemoteDataSourceImpl implements PokemonImageRemoteDataSource {
   Future<PokemonImageModel> getPokemonImage({required PokemonImageParams pokemonImageParams}) async {
     Directory directory = await getApplicationDocumentsDirectory();
     directory.deleteSync(recursive: true); // delete all files in the directory
-    final String pathFile = '${directory.path}/${pokemonImageParams.name}.png';
+
+    final String shiny = pokemonImageParams.isShiny ? "shiny" : "default";
+    final String pathFile = '${directory.path}/${pokemonImageParams.name}$shiny.png';
     final response = await dio.download(
       pokemonImageParams.imageUrl,
       pathFile,

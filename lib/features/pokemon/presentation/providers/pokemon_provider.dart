@@ -24,6 +24,7 @@ class PokemonProvider extends ChangeNotifier {
 
   void eitherFailureOrPokemon({
     required String value,
+    required bool isShiny,
     required PokemonImageProvider pokemonImageProvider,
   }) async {
     PokemonRepositoryImpl repository = PokemonRepositoryImpl(
@@ -46,7 +47,7 @@ class PokemonProvider extends ChangeNotifier {
       (newPokemon) {
         pokemon = newPokemon;
         failure = null;
-        pokemonImageProvider.eitherFailureOrPokemonImage (pokemonEntity: newPokemon);
+        pokemonImageProvider.eitherFailureOrPokemonImage (pokemonEntity: newPokemon, isShiny: isShiny);
         notifyListeners();
       },
     );

@@ -25,7 +25,7 @@ class PokemonImageProvider extends ChangeNotifier {
     this.failure,
   });
 
-  void eitherFailureOrPokemonImage({required PokemonEntity pokemonEntity}) async {
+  void eitherFailureOrPokemonImage({required PokemonEntity pokemonEntity, required bool isShiny}) async {
     PokemonImageRepositoryImpl repository = PokemonImageRepositoryImpl(
       remoteDataSource: PokemonImageRemoteDataSourceImpl(
         dio: Dio(),
@@ -39,12 +39,12 @@ class PokemonImageProvider extends ChangeNotifier {
     );
 
     String imageUrl = isShiny ? pokemonEntity.sprites.other.officialArtwork.frontShiny : pokemonEntity.sprites.other.officialArtwork.frontDefault;
-    
 
     final failureOrPokemonImage = await GetPokemonImage(pokemonImageRepository: repository).call(
       pokemonImageParams: PokemonImageParams(
         name: pokemonEntity.name,
         imageUrl: imageUrl,
+        isShiny: isShiny,
       ),
     );
 
